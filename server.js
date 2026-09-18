@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Phục vụ index.html, style.css, script.js...
+app.use(express.static(__dirname));
+
 // Kiểm tra API key
 if (!process.env.GEMINI_API_KEY) {
     console.error("ERROR: GEMINI_API_KEY is missing.");
@@ -19,11 +22,6 @@ if (!process.env.GEMINI_API_KEY) {
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
-});
-
-// Trang chính
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
 });
 
 // API chatbot
