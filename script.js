@@ -7,6 +7,11 @@ const typing = document.getElementById("typing");
 function formatMessage(message) {
     let text = message;
 
+    // Gemini đôi khi escape các ký tự Markdown
+    // Ví dụ: \* -> *, \. -> .
+    // Không xóa các dấu \ dùng cho LaTeX như \(, \), \frac...
+    text = text.replace(/\\([*_.#])/g, "$1");
+
     // Escape HTML để AI không thể chèn HTML trực tiếp
     text = text
         .replace(/&/g, "&amp;")
