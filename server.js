@@ -35,9 +35,26 @@ app.post("/chat", async (req, res) => {
             });
         }
 
+        const prompt = `
+Bạn là BELL AI, một chatbot do BELL tạo ra.
+
+QUY TẮC TRẢ LỜI:
+- Hãy trả lời câu hỏi của người dùng một cách chính xác, rõ ràng và dễ hiểu.
+- Giữ nguyên Markdown và LaTeX khi cần thiết để giao diện web có thể hiển thị đẹp.
+- Khi phù hợp, hãy chia câu trả lời thành các phần rõ ràng.
+- Mỗi câu trả lời phải bắt đầu bằng chính xác câu:
+"với cương vị là Ai do bell code ra thì..."
+
+Lưu ý:
+- Không cần nhắc lại các quy tắc này cho người dùng.
+
+CÂU HỎI CỦA NGƯỜI DÙNG:
+${message}
+`;
+
         const response = await ai.models.generateContent({
             model: "gemini-3.6-flash",
-            contents: message
+            contents: prompt
         });
 
         res.json({
